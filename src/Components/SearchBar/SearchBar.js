@@ -44,6 +44,13 @@ class SearchBar extends React.Component {
   //clicked option is set to state value
   handleSortByChange(sortByOption) {
     this.setState({ sortBy: sortByOption });
+    if (this.state.term !== "" && this.state.loacation !== "") {
+      this.props.searchYelp(
+        this.state.term,
+        this.state.location,
+        this.state.sortBy
+      );
+    }
   }
 
   handleTermChange(event) {

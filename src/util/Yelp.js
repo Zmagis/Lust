@@ -28,6 +28,7 @@ const Yelp = {
       });
     } else {
       alert("Could't find your request");
+
       window.location.reload();
     }
   }
