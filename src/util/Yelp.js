@@ -10,6 +10,7 @@ const Yelp = {
       { headers: { Authorization: `Bearer ${apiKey}` } }
     );
     const jsonResponse = await response.json();
+    console.log(jsonResponse);
     if (jsonResponse.businesses) {
       return jsonResponse.businesses.map(business => {
         return {
@@ -27,8 +28,9 @@ const Yelp = {
         };
       });
     } else {
-      alert("Could't find your request");
-
+      alert(
+        "Could't find your request. Countries available: https://www.yelp.com/locations"
+      );
       window.location.reload();
     }
   }

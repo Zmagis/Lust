@@ -1,15 +1,10 @@
-// https://www.youtube.com/watch?v=w1Ylc4aw2V8
-// https://www.youtube.com/watch?v=s0gg70kzfIE
-// https://www.youtube.com/watch?v=E7oz3vDssKQ
-// https://www.youtube.com/watch?v=EDyWXJN09cA
-// https://www.youtube.com/watch?v=tiH5WiA5I2E  random color picker
-
 import React from "react";
 
 import "./App.css";
 
 import BusinessList from "../BussinessList/BusinessList";
 import SearchBar from "../SearchBar/SearchBar";
+import Spinner from "../Spinner";
 
 import Yelp from "../../util/Yelp";
 
@@ -17,15 +12,24 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      businesses: []
+      businesses: [],
+      spinner: false
     };
     this.searchYelp = this.searchYelp.bind(this);
+    this.spinner = this.spinner.bind(this);
   }
 
   searchYelp(term, location, sortBy) {
+    this.setState({ spinner: true });
     Yelp.searchYelp(term, location, sortBy).then(businesses => {
       this.setState({ businesses: businesses });
     });
+  }
+
+  spinner() {
+    if (this.state.businesses.length === 0 && this.state.spinner === true) {
+      return <Spinner />;
+    }
   }
 
   render() {
@@ -34,7 +38,7 @@ class App extends React.Component {
         <h1>LUST</h1>
         <SearchBar searchYelp={this.searchYelp} />
         <BusinessList businesses={this.state.businesses} />
-        {this.props.Spinners}
+        {this.spinner()}
       </div>
     );
   }
